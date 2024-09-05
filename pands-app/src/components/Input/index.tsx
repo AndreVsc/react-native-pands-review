@@ -18,7 +18,7 @@ export function Input({placeholder, value, setValue, keyboardType, capitalize}: 
           style={styles.input}
           placeholder={placeholder?placeholder:"digite aqui..."}
           value={value?value:""}
-          secureTextEntry={placeholder==="password"?true:false}
+          secureTextEntry={placeholder==="password" || placeholder==="confirm password"?true:false}
           onChangeText={e => setValue && setValue(e)}
           keyboardType={keyboardType?keyboardType:"default"}
           autoCapitalize={capitalize?capitalize:"none"}
