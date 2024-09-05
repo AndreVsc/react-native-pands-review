@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     padding: 15,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 15,
     borderWidth: 1,
     fontWeight: "600",
   },
@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
     position: "absolute",
     left: 15,
     top: 15,
-    color: "#A9A9A9",
     fontWeight: "600",
   },
 });
