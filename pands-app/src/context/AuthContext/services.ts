@@ -2,9 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "./config";
 import { SignUpParams, User, WaterData } from "./props";
 
-// Auth Actions
 export const signIn = async (
-  email: string,
+  emailOrName: string,
   password: string,
   setIsAuthenticated: (isAuthenticated: boolean) => void,
   setUser: (user: User | null) => void,
@@ -18,7 +17,7 @@ export const signIn = async (
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ emailOrName, password }),
     });
 
     const data = await response.json();
@@ -41,7 +40,6 @@ export const signIn = async (
     setIsAuthenticated(true);
 
   } catch (error) {
-    console.error('Login Error:', error);
     throw new Error('An unexpected error occurred');
   }
 };
@@ -57,7 +55,7 @@ export const signOut = async (
     setUser(null);
     setWater(null);
   } catch (error) {
-    console.error('Error signing out:', error);
+    console.log('Error signing out:', error);
   }
 };
 
@@ -94,12 +92,11 @@ export const signUp = async ({
 
     navigation.navigate('Login');
   } catch (error) {
-    console.error('Error registering user:', error);
+    console.log('Error registering user:', error);
     setError('Error registering user');
   }
 };
 
-// User Actions
 export const syncUserData = async (
   token: string,
   setUser: (user: User | null) => void
@@ -121,7 +118,7 @@ export const syncUserData = async (
     setUser(userData);
 
   } catch (error) {
-    console.error('Error syncing user data:', error);
+    console.log('Error syncing user data:', error);
   }
 };
 
@@ -155,12 +152,11 @@ export const deleteUser = async (
     console.log('User deleted successfully');
 
   } catch (error) {
-    console.error('Error deleting user:', error);
+    console.log('Error deleting user:', error);
     throw error;
   }
 };
 
-// Water Actions
 export const fetchWaterData = async (
   setWater: (water: WaterData | null) => void
 ) => {
@@ -186,7 +182,7 @@ export const fetchWaterData = async (
     setWater(waterData);
 
   } catch (error) {
-    console.error('Error fetching water data:', error);
+    console.log('Error fetching water data:', error);
   }
 };
 
@@ -216,11 +212,10 @@ export const updateWaterData = async (
 
     await fetchWaterData(setWater);
   } catch (error) {
-    console.error('Error updating water data:', error);
+    console.log('Error updating water data:', error);
   }
 };
 
-// API Checks
 export const checkIfNameExists = async (name: string): Promise<boolean> => {
   try {
     const response = await fetch(`${API_URL}/auth/check-name`, {
@@ -238,7 +233,7 @@ export const checkIfNameExists = async (name: string): Promise<boolean> => {
     const data = await response.json();
     return data.exists;
   } catch (error) {
-    console.error('Error checking name:', error);
+    console.log('Error checking name:', error);
     return false;
   }
 };
@@ -260,7 +255,7 @@ export const checkIfEmailExists = async (email: string): Promise<boolean> => {
     const data = await response.json();
     return data.exists;
   } catch (error) {
-    console.error('Error checking email:', error);
+    console.log('Error checking email:', error);
     return false;
   }
 };

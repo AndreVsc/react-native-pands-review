@@ -46,23 +46,18 @@ export function Register() {
             <View style={styles.containerTittle}>
               <Tittle value="Register" />
             </View>
-
             <View style={styles.containerInfo}>
               <Text style={styles.label}>Name</Text>
               <Input value={name} setValue={setName} placeholder="name" />
               {nameError ? (<Text style={styles.textError}>{nameError}</Text>) : (<></>)}
             </View>
-
             <View style={styles.containerInfo}>
               <Input value={password} setValue={setPassword} placeholder="password" />
               <Input value={confirmPassword} setValue={setConfirmPassword} placeholder="confirm password" />
               {passwordError ? (<Text style={styles.textError}>{passwordError}</Text>) : (<></>)}
             </View>
-
             <View style={styles.containerInfo}>
-              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {
-                if (await validateStepOne(name, password, confirmPassword, setNameError, setPasswordError)) setCurrentStep(1);
-              }} />
+              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {if (await validateStepOne(name, password, confirmPassword, setNameError, setPasswordError)) setCurrentStep(1);}} />
               <Link value="Do you have a account?" link="Sign in." func={onLogin} color="#EF9664" />
               {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
@@ -80,17 +75,8 @@ export function Register() {
               {emailError ? (<Text style={styles.textError}>{emailError}</Text>) : (<></>)}
             </View>
             <View style={styles.containerInfo}>
-              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {
-                if (await validateStepTwo(email, setEmailError)) {
-                  setUserType(2);
-                  setCurrentStep(2);
-                }
-              }} />
-              <Link value="Remind me" link="later." func={() => {
-                setUserType(1);
-                setEmail("");
-                setCurrentStep(2);
-              }} color="#EF9664" />
+              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {if (await validateStepTwo(email, setEmailError)) {setUserType(2); setCurrentStep(2);}}} />
+              <Link value="Remind me" link="later." func={() => {setUserType(1); setEmail(""); setCurrentStep(2);}} color="#EF9664" />
               {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
           </>
@@ -112,9 +98,7 @@ export function Register() {
               {dateError ? (<Text style={styles.textError}>{dateError}</Text>) : (<></>)}
             </View>
             <View style={styles.containerInfo}>
-              <Button backgroundColor="#7AB68B" color="#FFFFFF" func={() => {
-                if (validateStepThree(weigth, date, setWeigthError, setDateError)) handleRegister(confirmPassword, email, password, name, weigth, date, userType, navigation, setError, setCurrentStep);
-              }} />
+              <Button backgroundColor="#7AB68B" color="#FFFFFF" func={() => {if (validateStepThree(weigth, date, setWeigthError, setDateError)) handleRegister(confirmPassword, email, password, name, weigth, date, userType, navigation, setError, setCurrentStep);}} />
               {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
           </>
