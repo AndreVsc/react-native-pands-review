@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
+import { AuthStackParamList } from "../../routes/auth.routes";
+import { useRegisterActions } from "./actions";
+
 import { Input } from "../../components/Input";
 import { Tittle } from "../../components/Tittle";
 import { Button } from "../../components/Button";
 import { Link } from "../../components/Link";
 
 import { styles } from "./styles";
-import { InputRegisterProps } from "./props";
-import { AuthStackParamList } from "../../routes/auth.routes";
 
 export function Register() {
   const [email, setEmail] = useState<string>("");
@@ -18,6 +19,7 @@ export function Register() {
   const [name, setName] = useState<string>("");
   const [weigth, setWeigth] = useState<string>("");
   const [date, setDate] = useState<string>("");
+  const [userType, setUserType] = useState<number>(2);
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   // Error states
@@ -26,56 +28,14 @@ export function Register() {
   const [nameError, setNameError] = useState<string>("");
   const [weigthError, setWeigthError] = useState<string>("");
   const [dateError, setDateError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+
+  const { handleRegister, validateStepOne, validateStepTwo, validateStepThree } = useRegisterActions();
 
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
   function onLogin() {
     navigation.navigate("Login");
-  }
-
-  function validateStepOne() {
-    let valid = true;
-    if (!name) {
-      setNameError("This field is required");
-      valid = false;
-    } else {
-      setNameError("");
-    }
-    if (!password || !confirmPassword) {
-      setPasswordError("This field is required");
-      valid = false;
-    } else {
-      setPasswordError("");
-    }
-    return valid;
-  }
-
-  function validateStepTwo() {
-    let valid = true;
-    if (!email) {
-      setEmailError("This field is required");
-      valid = false;
-    } else {
-      setEmailError("");
-    }
-    return valid;
-  }
-
-  function validateStepThree() {
-    let valid = true;
-    if (!weigth) {
-      setWeigthError("This field is required");
-      valid = false;
-    } else {
-      setWeigthError("");
-    }
-    if (!date) {
-      setDateError("This field is required");
-      valid = false;
-    } else {
-      setDateError("");
-    }
-    return valid;
   }
 
   function renderCurrentStep() {
@@ -100,10 +60,11 @@ export function Register() {
             </View>
 
             <View style={styles.containerInfo}>
-              <Button backgroundColor="#EF9664" color="#FFFFFF" func={() => {
-                if (validateStepOne()) setCurrentStep(1);
+              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {
+                if (await validateStepOne(name, password, confirmPassword, setNameError, setPasswordError)) setCurrentStep(1);
               }} />
               <Link value="Do you have a account?" link="Sign in." func={onLogin} color="#EF9664" />
+              {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
           </>
         );
@@ -119,10 +80,18 @@ export function Register() {
               {emailError ? (<Text style={styles.textError}>{emailError}</Text>) : (<></>)}
             </View>
             <View style={styles.containerInfo}>
-              <Button backgroundColor="#EF9664" color="#FFFFFF" func={() => {
-                if (validateStepTwo()) setCurrentStep(2);
+              <Button backgroundColor="#EF9664" color="#FFFFFF" func={async () => {
+                if (await validateStepTwo(email, setEmailError)) {
+                  setUserType(2);
+                  setCurrentStep(2);
+                }
               }} />
-              <Link value="Remind me" link="later." func={onLogin} color="#EF9664" />
+              <Link value="Remind me" link="later." func={() => {
+                setUserType(1);
+                setEmail("");
+                setCurrentStep(2);
+              }} color="#EF9664" />
+              {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
           </>
         );
@@ -144,8 +113,9 @@ export function Register() {
             </View>
             <View style={styles.containerInfo}>
               <Button backgroundColor="#7AB68B" color="#FFFFFF" func={() => {
-                if (validateStepThree()) setCurrentStep(0);
+                if (validateStepThree(weigth, date, setWeigthError, setDateError)) handleRegister(confirmPassword, email, password, name, weigth, date, userType, navigation, setError, setCurrentStep);
               }} />
+              {error ? (<Text style={styles.textError}>{error}</Text>) : (<></>)}
             </View>
           </>
         );
