@@ -18,7 +18,7 @@ export function Login() {
     const [passwordError, setPasswordError] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
-    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+    const navigation = useNavigation<any>();
     const { signIn } = useAuth();
 
     async function onLogin() {
@@ -27,7 +27,10 @@ export function Login() {
             setPasswordError("");
             try {
                 await signIn(emailOrName, password);
-                navigation.navigate("Register");
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "Main" }]
+                });
             } catch (err) {
                 setError("Credenciais inválidas");
             }

@@ -11,3 +11,9 @@
 ```powershell
     npm install @react-navigation/native-stack
 ```
+
+[**Gesture Handler**]
+
+```powershell
+    npm install react-native-gesture-handler@~2.16.1
+```
