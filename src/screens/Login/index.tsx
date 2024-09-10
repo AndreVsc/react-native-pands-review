@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-import { AuthStackParamList } from "../../routes/auth.routes";
 import { Input } from "../../components/Input";
 import { Tittle } from "../../components/Tittle";
 import { Button } from "../../components/Button";
 import { Link } from "../../components/Link";
 
 import { styles } from "./styles";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context";
 
 export function Login() {
     const [emailOrName, setEmailOrName] = useState<string>("");

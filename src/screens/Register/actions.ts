@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native';
 import { AuthStackParamList } from "../../routes/auth.routes";
-import { useAuth } from "../../context/AuthContext/index";
+import { useAuth } from "../../context";
 
 export function useRegisterActions() {
   const { signUp, checkIfNameExists, checkIfEmailExists } = useAuth();

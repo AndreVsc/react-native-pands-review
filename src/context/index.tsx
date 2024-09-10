@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User, WaterData, SignUpParams, AuthContextData } from "./props";
-import { createContext } from 'react';
-import { signIn, signOut, signUp, syncUserData, deleteUser, fetchWaterData, updateWaterData, checkIfNameExists, checkIfEmailExists } from "./services";
+import { createContext } from "react";
+import { signIn, signOut, signUp } from "../services/auth";
+import { syncUserData, deleteUser } from "../services/user";
+import { fetchWaterData, updateWaterData } from "../services/water";
+import { checkIfNameExists, checkIfEmailExists } from "../services/validation";
 
 const AuthContext = createContext<AuthContextData>({
   isAuthenticated: false,
@@ -47,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <AuthContext.Provider value={{
       isAuthenticated,
-      signIn: (email, password) => signIn(email, password, setIsAuthenticated, setUser, setWater, syncUserData, fetchWaterData),
+      signIn: (email, password) => signIn(email, password, setIsAuthenticated, setUser, setWater),
       signUp,
       signOut: () => signOut(setIsAuthenticated, setUser, setWater),
       loading,
@@ -55,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       deleteUser: () => deleteUser(setIsAuthenticated, setUser, setWater, () => signOut(setIsAuthenticated, setUser, setWater)),
       water,
       fetchWaterData: () => fetchWaterData(setWater),
-      updateWaterData: (data) => updateWaterData(data, setWater, fetchWaterData),
+      updateWaterData: (data) => updateWaterData(data, setWater),
       checkIfNameExists,
       checkIfEmailExists
     }}>

@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
-import { useAuth } from "../../context/AuthContext"
-import { styles } from "./styles";
+import { useAuth } from "../../context"
 import { Button } from "../../components/Button";
+
+import { styles } from "./styles";
 
 export function Menu() {
 

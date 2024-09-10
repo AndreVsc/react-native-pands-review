@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { AuthProvider, useAuth } from "./src/context/AuthContext";
+import { AuthProvider, useAuth } from "./src/context";
 import { AuthRoutes } from "./src/routes/auth.routes";
 import { StackRoutes } from "./src/routes/stack.routes";
 
