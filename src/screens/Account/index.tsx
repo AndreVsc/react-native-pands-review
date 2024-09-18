@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, Alert, ActivityIndicator } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { View, Text, Alert, ActivityIndicator, ScrollView, TouchableOpacity} from "react-native";
+import { FontAwesome6, SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { useAuth } from "../../context";
 
@@ -19,7 +18,11 @@ export function Account() {
   function Navbar() {
     return (
       <View style={styles.allNavbar}>
-        <Button func={() => { navigation.navigate("Menu") }} />
+        <View style={{marginTop:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Menu")}}>
+            <SimpleLineIcons name="arrow-left" size={17} color="#242424" />
+          </TouchableOpacity>
+        </View>
         <View style={styles.accountNavbar}>
           <View style={styles.acountNavbarItems}>
             <FontAwesome6 name="user-large" size={100} color="#728FD6" />
@@ -61,18 +64,20 @@ export function Account() {
 
   if (loading) {
     return (
-      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="#728FD6" />
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.navbar}>
+    <View>
+      
+      <View style={styles.containerNavbar}>
         <Navbar />
       </View>
-      <ScrollView style={{ height: "100%" }}>
+
+      <ScrollView>
         <View style={styles.options}>
           <View style={styles.optionsItems}>
             <Text style={styles.labelOpition}>Account</Text>

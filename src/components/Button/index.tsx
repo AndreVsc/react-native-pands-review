@@ -9,12 +9,13 @@ interface ButtonProps {
     value?: string;
     func?: ()=>void;
     color?: string;
+    iconColor?: string;
 }
 
-export function Button({value,func,color,backgroundColor}:ButtonProps) {
+export function Button({value,func,color,backgroundColor,iconColor}:ButtonProps) {
   return (
     <TouchableOpacity onPress={func?func:()=>{}} style={[styles.button,{backgroundColor}]}>
-        <Text style={[styles.text,{color}]}>{value?value:<SimpleLineIcons name="arrow-right" size={14} color="white" />}</Text>
+        <Text style={[styles.text,{color}]}>{value?value:<SimpleLineIcons name="arrow-right" size={14} color={iconColor} />}</Text>
     </TouchableOpacity>
   );
 }

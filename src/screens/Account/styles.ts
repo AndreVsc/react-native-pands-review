@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  container:{
-
+  containerNavbar:{
+    flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"center",
+    paddingTop:30,
   },
   allNavbar:{
     flexDirection:"row",
-    justifyContent:"space-between",
+    justifyContent:"space-around",
     width:"100%",
     padding:20,
   },
@@ -16,12 +19,6 @@ export const styles = StyleSheet.create({
     alignContent:"center",
     alignItems:"center",
     gap:30,
-  },
-  navbar:{
-    flexDirection:"column",
-    justifyContent:"center",
-    alignItems:"center",
-    paddingTop:30,
   },
   options: {
     flex:1,
