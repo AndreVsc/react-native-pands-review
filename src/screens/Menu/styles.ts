@@ -18,15 +18,7 @@ export const styles = StyleSheet.create({
     containerInfo: {
         marginBottom: 20,
     },
-    label: {
-        marginBottom: 5,
-        color: "#617CA6",
-    },
     containerScroll: {
         marginTop: 20,
-    },
-    textError: {
-        color: "#FF0000",
-        marginBottom: 5,
     },
 });

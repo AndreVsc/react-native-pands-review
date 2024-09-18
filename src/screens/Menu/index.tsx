@@ -3,8 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, ScrollView, Animated } from "react-native";
 import { FontAwesome6 , Ionicons } from '@expo/vector-icons';
 
-import { styles } from "./styles";
 import { Block } from "../../components/Block";
+import { Tittle } from "../../components/Tittle";
+import { styles } from "./styles";
 
 export function Menu() {
   const animations = [new Animated.Value(100), new Animated.Value(100), new Animated.Value(100)];
@@ -34,9 +35,9 @@ export function Menu() {
 
       <View style={styles.containerNavbar}>
         <TouchableOpacity>
-          <FontAwesome6 name="user-large" size={27} color="#617CA6" onPress={() => navigation.navigate("account")}/>
+          <FontAwesome6 name="user-large" size={22} color="#617CA6" onPress={()=>{navigation.navigate("Account")}}/>
         </TouchableOpacity>
-        <Text>Insights</Text>
+        <Tittle value="Insigths" />
         <TouchableOpacity>
           <Ionicons name="settings-sharp" size={22} color="black" />
         </TouchableOpacity>
